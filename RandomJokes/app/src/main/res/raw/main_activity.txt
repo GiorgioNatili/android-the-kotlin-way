@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>MainActivity.kt</title>
+<meta name="Generator" content="Vim/8.0">
+<meta name="plugin-version" content="vim7.4_v2">
+<meta name="syntax" content="kotlin">
+<meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=">
+<meta name="colorscheme" content="solarized">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #8a8a8a; background-color: #000000; }
+body { font-family: monospace; color: #8a8a8a; background-color: #000000; }
+* { font-size: 1em; }
+.LineNr { color: #626262; }
+.Statement { color: #5f8700; }
+.PreProc { color: #d75f00; }
+.Type { color: #af8700; }
+-->
+</style>
+
+<script type='text/javascript'>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
+</head>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L1" class="LineNr"> 1 </span><span class="PreProc">package</span> io.a2xe.experiments.randomjokes <br>
+<span id="L2" class="LineNr"> 2 </span><br>
+<span id="L3" class="LineNr"> 3 </span><span class="PreProc">import</span> android.os.Bundle<br>
+<span id="L4" class="LineNr"> 4 </span><span class="PreProc">import</span> android.support.v7.app.AppCompatActivity<br>
+<span id="L5" class="LineNr"> 5 </span><span class="PreProc">import</span> kotlinx.android.synthetic.main.activity_main.*<br>
+<span id="L6" class="LineNr"> 6 </span><br>
+<span id="L7" class="LineNr"> 7 </span><span class="Type">class</span> MainActivity : AppCompatActivity() {<br>
+<span id="L8" class="LineNr"> 8 </span><br>
+<span id="L9" class="LineNr"> 9 </span>    <span class="Type">override</span> <span class="Type">fun</span> onCreate(savedInstanceState: Bundle?) {<br>
+<span id="L10" class="LineNr">10 </span>        <span class="Statement">super</span>.onCreate(savedInstanceState)<br>
+<span id="L11" class="LineNr">11 </span>        setContentView(R.layout.activity_main)<br>
+<span id="L12" class="LineNr">12 </span><br>
+<span id="L13" class="LineNr">13 </span>        <span class="Type">val</span> jokesProvider = JokesProvider(<span class="Statement">this</span>)<br>
+<span id="L14" class="LineNr">14 </span>        joke_content.text = jokesProvider.getRandomJoke()<br>
+<span id="L15" class="LineNr">15 </span>    }<br>
+<span id="L16" class="LineNr">16 </span>}<br>
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->

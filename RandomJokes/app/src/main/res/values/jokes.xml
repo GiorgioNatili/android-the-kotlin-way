@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources name="jokes_list">
+    <string-array name="jokes_list">
+        <item>
+            31 in base 8 (OCT) is the same as 25 in base 10 (DEC).
+        </item>
+        <item>
+           The statistician isn\'t bothered; his expectation was approximately correct.
+        </item>
+        <item>
+            The statistician isn\'t bothered because this isn\'t a large enough sample size.
+        </item>
+        <item>
+            Just as long as the equation is balanced, everything will be okay.
+        </item>
+        <item>
+            Argon walks into a bar. The bartender says get the hell out. Argon doesn\'t react.
+        </item>
+        <item>
+            The statistician isn't bothered because this isn\'t a large enough sample size.
+        </item>
+        <item>
+            Just as long as the equation is balanced, everything will be okay.
+        </item>
+        <item>
+            What is Benoit B. Mandelbrot\'s middle name? \n Benoit B. Mandelbrot
+        </item>
+        <item>
+            Do you know any anagrams of Banach-Tarski? \nBanach-Tarski Banach-Tarski!
+        </item>
+        <item>
+            Argon walks into a bar. The bartender says get the hell out. Argon doesn\'t react.
+        </item>
+        <item>
+            I was going to post a chemistry pun but then I thought, Na.
+        </item>
+        <item>
+            I say we take all the bad chemistry jokes and Barium.
+        </item>
+        <item>
+            Doctors motto: If you can\'t helium or curium, barium.
+        </item>
+        <item>
+            Helium walks into a bar. The bartender says get the hell out. He doesn\'t react.
+        </item>
+        <item>
+            Helium walks into a bar. The bartender says get the hell out in a very squeaky voice, then asphyxiates.
+        </item>
+    </string-array>
+</resources>

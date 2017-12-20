@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Random Jokes</string>
+    <string name="joke_placeholder">Why can\'t programmers tell the difference between Halloween and Christmas? ...Because OCT31 == DEC25.</string>
+    <string name="joke_instructions">Rotate and get a joke</string>
+    <string name="show_source_code">Show Source</string>
+    <string name="hide_source_code">Hide Source</string>
+</resources>
