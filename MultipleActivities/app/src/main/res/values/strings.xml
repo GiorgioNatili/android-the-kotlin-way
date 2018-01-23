@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MultipleActivities</string>
-    <string name="open_content_main_activity">Ask Ubuntu</string>
+    <string name="open_content_main_activity">Open web page</string>
 </resources>
