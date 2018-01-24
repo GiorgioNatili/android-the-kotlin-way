@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import io.a2xe.experiments.multipleactivities.bundles.launchURL
 import kotlinx.android.synthetic.main.activity_web_content.*
 
 class WebContentActivity : AppCompatActivity() {
@@ -13,6 +14,8 @@ class WebContentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_web_content)
 
         web_page_renderer.webViewClient = WebViewClient()
+
+        // Strongly not recommended, it's a not secure practice used to simplify this example
         web_page_renderer.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
        when(savedInstanceState) {
@@ -22,10 +25,8 @@ class WebContentActivity : AppCompatActivity() {
     }
 
     private fun openWebPage() {
-
-        this.intent.extras.let {
-            val launchUrl = it.getString("LAUNCH_URL")
-            web_page_renderer.loadUrl(launchUrl)
+        intent.launchURL.let {
+            web_page_renderer.loadUrl(it)
         }
     }
 }
