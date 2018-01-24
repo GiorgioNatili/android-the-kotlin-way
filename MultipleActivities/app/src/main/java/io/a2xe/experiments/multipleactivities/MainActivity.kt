@@ -2,6 +2,7 @@ package io.a2xe.experiments.multipleactivities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import io.a2xe.experiments.multipleactivities.bundles.launchURL
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         open_new_window.setOnClickListener {
 
             launchActivity<WebContentActivity>{
-                putExtra("LAUNCH_URL", url_to_open.text.toString())
+                this.launchURL = url_to_open.text.toString()
             }
         }
     }
