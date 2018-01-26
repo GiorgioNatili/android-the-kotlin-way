@@ -30,4 +30,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/url_to_open" />
 
+    <ListView
+        android:id="@+id/local_history"
+        android:layout_width="fill_parent"
+        app:layout_constraintTop_toBottomOf="@+id/open_new_window"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_height="wrap_content" />
+
 </android.support.constraint.ConstraintLayout>
