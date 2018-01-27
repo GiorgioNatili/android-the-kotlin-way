@@ -25,6 +25,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
+        android:enabled="false"
+        android:singleLine="true"
         android:text="@string/open_content_main_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
