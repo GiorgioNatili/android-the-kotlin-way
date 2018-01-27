@@ -1,4 +1,4 @@
-package io.a2xe.experiments.multipleactivities.adapters.renderers
+package io.a2xe.experiments.multipleactivities.adapters.website
 
 import android.view.View
 import android.widget.TextView

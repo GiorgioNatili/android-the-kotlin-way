@@ -2,7 +2,7 @@ package io.a2xe.experiments.multipleactivities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import io.a2xe.experiments.multipleactivities.adapters.WebSiteAdapter
+import io.a2xe.experiments.multipleactivities.adapters.website.WebSiteAdapter
 import io.a2xe.experiments.multipleactivities.bundles.launchURL
 import io.a2xe.experiments.multipleactivities.utilities.launchActivity
 import io.a2xe.experiments.multipleactivities.utilities.readURLs

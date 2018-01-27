@@ -1,11 +1,11 @@
-package io.a2xe.experiments.multipleactivities.adapters
+package io.a2xe.experiments.multipleactivities.adapters.website
 
 import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import io.a2xe.experiments.multipleactivities.R
-import io.a2xe.experiments.multipleactivities.adapters.renderers.WebSiteItemRenderer
+import io.a2xe.experiments.multipleactivities.adapters.website.WebSiteItemRenderer
 import io.a2xe.experiments.multipleactivities.model.WebSite
 
 /**
