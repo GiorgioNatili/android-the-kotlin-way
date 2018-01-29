@@ -6,10 +6,7 @@ import io.a2xe.experiments.multipleactivities.adapters.website.WebSiteAdapter
 import io.a2xe.experiments.multipleactivities.bundles.launchURL
 import io.a2xe.experiments.multipleactivities.messages.ActivityBasedMainMessages
 import io.a2xe.experiments.multipleactivities.messages.MainMessages
-import io.a2xe.experiments.multipleactivities.utilities.afterTextChanged
-import io.a2xe.experiments.multipleactivities.utilities.isValidURL
-import io.a2xe.experiments.multipleactivities.utilities.launchActivity
-import io.a2xe.experiments.multipleactivities.utilities.readURLs
+import io.a2xe.experiments.multipleactivities.utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = WebSiteAdapter(this, readURLs())
-        local_history.adapter = adapter
+        loadHistory()
 
         url_to_open.afterTextChanged {
             when (it.isValidURL) {
@@ -37,5 +33,16 @@ class MainActivity : AppCompatActivity() {
                 this.launchURL = url_to_open.text.toString()
             }
         }
+    }
+
+    private fun loadHistory() {
+        val adapter = WebSiteAdapter(this, readURLs())
+        local_history.adapter = adapter
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        loadHistory()
     }
 }
