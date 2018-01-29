@@ -36,13 +36,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadHistory() {
-        val adapter = WebSiteAdapter(this, readURLs())
+        val urls = readURLs()
+        urls.reverse()
+
+        val adapter = WebSiteAdapter(this, urls)
         local_history.adapter = adapter
     }
 
     override fun onRestart() {
         super.onRestart()
-
         loadHistory()
     }
 }
