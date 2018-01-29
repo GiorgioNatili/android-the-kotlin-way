@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadHistory() {
-        val urls = readURLs()
-        urls.reverse()
 
+        val urls = readURLs()
         val adapter = WebSiteAdapter(this, urls)
+
         local_history.adapter = adapter
     }
 
