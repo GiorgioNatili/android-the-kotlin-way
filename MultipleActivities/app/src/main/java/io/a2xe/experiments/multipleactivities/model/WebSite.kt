@@ -1,6 +1,10 @@
 package io.a2xe.experiments.multipleactivities.model
 
+import java.time.LocalDateTime
+
 /**
  * Created by giorgio on 1/25/18.
  */
-data class WebSite(val title: String, val url: String?)
+data class WebSite(val title: String,
+                   val url: String?,
+                   val timestamp: LocalDateTime = LocalDateTime.now())
