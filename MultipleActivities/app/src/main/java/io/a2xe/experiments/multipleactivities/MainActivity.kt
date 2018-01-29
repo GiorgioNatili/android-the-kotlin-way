@@ -35,16 +35,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadHistory() {
+    override fun onRestart() {
+        super.onRestart()
+        waitForPreferencesToBeUpdated { loadHistory() }
+    }
 
+    private fun loadHistory() {
         val urls = readURLs()
         val adapter = WebSiteAdapter(this, urls)
 
         local_history.adapter = adapter
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        loadHistory()
     }
 }
