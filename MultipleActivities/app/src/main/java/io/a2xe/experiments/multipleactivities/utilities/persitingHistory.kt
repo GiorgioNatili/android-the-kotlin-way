@@ -36,3 +36,12 @@ fun Context.readURLs(): ArrayList<WebSite> {
 
     return urls
 }
+
+fun <T>Context.waitForPreferencesToBeUpdated(callback: () -> T) {
+    val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+    preferences.registerOnSharedPreferenceChangeListener { _, _ ->
+        run {
+            callback()
+        }
+    }
+}
