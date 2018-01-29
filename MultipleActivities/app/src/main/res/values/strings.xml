@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MultipleActivities</string>
     <string name="open_content_main_activity">Open web page</string>
+    <string name="not_valid_url">It\'s not a valid URL!</string>
 </resources>

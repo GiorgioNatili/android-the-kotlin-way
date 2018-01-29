@@ -6,8 +6,11 @@ import io.a2xe.experiments.multipleactivities.R
 /**
  * Created by giorgio on 1/27/18.
  */
-class ActivityBasedUserInputErrors(private val activity: Activity) : UserInputErrors {
+class ActivityBasedMainMessages(private val activity: Activity) : MainMessages {
 
     override val notValidURL: String
         get() = activity.getString(R.string.not_valid_url)
+
+    override val typeAnURL: String
+        get() = activity.getString(R.string.open_content_main_activity)
 }
