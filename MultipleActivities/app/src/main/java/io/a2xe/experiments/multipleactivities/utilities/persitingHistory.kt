@@ -9,6 +9,8 @@ import io.a2xe.experiments.multipleactivities.model.WebSite
  */
 fun Context.saveURLs (collection: ArrayList<WebSite>) {
 
+    collection.sortedWith(compareBy({ it.timestamp }))
+
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
     val editor = sharedPreferences.edit()
 
