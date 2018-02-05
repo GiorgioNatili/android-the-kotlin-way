@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/url_to_open"
