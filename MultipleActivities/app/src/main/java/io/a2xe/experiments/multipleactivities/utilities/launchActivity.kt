@@ -9,7 +9,7 @@ import android.os.Bundle
  * Created by giorgio on 1/22/18.
  */
 
-inline fun <reified T : Any> Context.launchActivity(
+inline fun <reified T> Context.launchActivity(
         options: Bundle? = null,
         noinline init: Intent.() -> Unit = {}) {
 
@@ -22,5 +22,5 @@ inline fun <reified T : Any> Context.launchActivity(
     }
 }
 
-inline fun <reified T : Any> newIntent(context: Context): Intent = Intent(context, T::class.java)
+inline fun <reified T> newIntent(context: Context): Intent = Intent(context, T::class.java)
 
