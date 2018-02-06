@@ -23,10 +23,9 @@ class WebContentActivity : AppCompatActivity() {
         // Strongly not recommended, it's a not secure practice used to simplify this example
         web_page_renderer.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
-       when(savedInstanceState) {
-           null -> openWebPage(intent.launchURL)
-           else -> openWebPage(savedInstanceState.getString(CURRENT_URL))
-       }
+        intent.launchURL?.let {
+            web_page_renderer.loadUrl(it)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -37,11 +36,5 @@ class WebContentActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         saveURLs(smartWebClient.history)
-    }
-
-    private fun openWebPage(url: String?) {
-        url.let {
-            web_page_renderer.loadUrl(it)
-        }
     }
 }
