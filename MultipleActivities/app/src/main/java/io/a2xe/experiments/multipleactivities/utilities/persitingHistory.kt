@@ -28,11 +28,7 @@ fun Context.readURLs(): ArrayList<WebSite> {
     val allEntries = sharedPreferences.all
 
     val urls = arrayListOf<WebSite>()
-
-    for (entry in allEntries.entries) {
-
-        urls.add(WebSite(entry.key, entry.value.toString()))
-    }
+    allEntries.entries.mapTo(urls) { WebSite(it.key, it.value.toString()) }
 
     return urls
 }
