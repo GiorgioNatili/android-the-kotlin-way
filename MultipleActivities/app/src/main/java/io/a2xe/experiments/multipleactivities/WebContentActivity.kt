@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.webkit.WebSettings
 import io.a2xe.experiments.multipleactivities.bundles.launchURL
-import io.a2xe.experiments.multipleactivities.model.WebSite
 import io.a2xe.experiments.multipleactivities.services.SmartWebClient
-import io.a2xe.experiments.multipleactivities.utilities.readURLs
 import io.a2xe.experiments.multipleactivities.utilities.saveURLs
 import kotlinx.android.synthetic.main.activity_web_content.*
 
@@ -24,7 +22,7 @@ class WebContentActivity : AppCompatActivity() {
         web_page_renderer.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
         when(savedInstanceState) {
-            null -> { intent.launchURL.let { openWebPage(intent.launchURL) }}
+            null -> intent.launchURL.let { openWebPage(it) }
             else -> openWebPage(savedInstanceState.getString(CURRENT_URL))
         }
     }
