@@ -22,7 +22,7 @@ class WebContentActivity : AppCompatActivity() {
         web_page_renderer.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
         when(savedInstanceState) {
-            null -> intent.launchURL.let { openWebPage(it) }
+            null -> intent.launchURL?.let { openWebPage(it) }
             else -> openWebPage(savedInstanceState.getString(CURRENT_URL))
         }
     }
@@ -37,9 +37,7 @@ class WebContentActivity : AppCompatActivity() {
         saveURLs(smartWebClient.history)
     }
 
-    private fun openWebPage(url: String?) {
-        url.let {
-            web_page_renderer.loadUrl(it)
-        }
+    private fun openWebPage(url: String) {
+        web_page_renderer.loadUrl(url)
     }
 }
