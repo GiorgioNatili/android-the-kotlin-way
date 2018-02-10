@@ -9,14 +9,16 @@ import io.a2xe.experiments.multipleactivities.model.WebSite
  */
 fun Context.saveURLs (collection: ArrayList<WebSite>) {
 
-    collection.sortedWith(compareBy({ it.timestamp }))
+    val distinctURLs = collection
+            .distinctBy { it -> it.title }
+            .sortedWith(compareBy({ it.timestamp }))
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
     val editor = sharedPreferences.edit()
 
-    for (i in 0 until collection.size) {
-        editor.remove(collection[i].title)
-        editor.putString(collection[i].title, collection[i].url)
+    for (i in 0 until distinctURLs.size) {
+        editor.remove(distinctURLs[i].title)
+        editor.putString(distinctURLs[i].title, distinctURLs[i].url)
     }
 
     editor.apply()
