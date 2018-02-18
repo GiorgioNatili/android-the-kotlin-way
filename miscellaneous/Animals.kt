@@ -3,7 +3,7 @@ open class Pet {
 }
 
 interface Dog {
-    fun waiveTail() = println("Waiving my tail")
+    fun waiveTail() = println("Waving my tail")
 }
 
 interface Cat {
