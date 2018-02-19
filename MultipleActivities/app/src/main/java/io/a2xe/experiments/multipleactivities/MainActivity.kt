@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.a2xe.experiments.multipleactivities.adapters.website.WebSiteAdapter
 import io.a2xe.experiments.multipleactivities.bundles.launchURL
-import io.a2xe.experiments.multipleactivities.messages.ActivityBasedMainMessages
-import io.a2xe.experiments.multipleactivities.messages.MainMessages
+import io.a2xe.experiments.multipleactivities.messages.ActivityBasedURLUserInput
+import io.a2xe.experiments.multipleactivities.messages.URLUserInput
 import io.a2xe.experiments.multipleactivities.utilities.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val userInputErrors: MainMessages = ActivityBasedMainMessages(this)
+    private val userInput: URLUserInput = ActivityBasedURLUserInput(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,10 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         loadHistory()
 
+        url_to_open.hint = userInput.typeValidURL
         url_to_open.afterTextChanged {
             when (it.isValidURL) {
                 true ->  url_to_open.error = null
-                false -> url_to_open.error = userInputErrors.notValidURL
+                false -> url_to_open.error = userInput.notValidURL
             }
             open_new_window.isEnabled = it.isValidURL
         }
