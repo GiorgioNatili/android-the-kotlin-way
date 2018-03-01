@@ -6,9 +6,8 @@ import android.support.v7.app.AppCompatActivity
 /**
  * Created by giorgio on 2/26/18.
  */
-fun Activity.whenAppCompactActivity (activity: Activity?,
-                                     callback: (compactActivity: AppCompatActivity) -> Unit) {
-    activity?.let {
+fun Activity.whenAppCompactActivity (callback: (compactActivity: AppCompatActivity) -> Unit) {
+    this?.let {
         when (it) {
             is AppCompatActivity -> it
             else -> null
