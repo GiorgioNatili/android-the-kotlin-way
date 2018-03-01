@@ -27,7 +27,7 @@ class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver)
 
     override fun onActivityDestroyed(activity: Activity?) {
         activity?.let {
-            it.whenAppCompactActivity(activity) {
+            it.whenAppCompactActivity {
                 it.lifecycle.removeObserver(lifecycleObserver)
             }
         }
@@ -39,7 +39,7 @@ class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver)
 
     override fun onActivityStopped(activity: Activity?) {
         activity?.let {
-            it.whenAppCompactActivity(activity) {
+            it.whenAppCompactActivity {
                 it.lifecycle.removeObserver(lifecycleObserver)
             }
         }
@@ -47,7 +47,7 @@ class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver)
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
         activity?.let {
-            it.whenAppCompactActivity(activity) {
+            it.whenAppCompactActivity {
                 it.lifecycle.addObserver(lifecycleObserver)
             }
         }
