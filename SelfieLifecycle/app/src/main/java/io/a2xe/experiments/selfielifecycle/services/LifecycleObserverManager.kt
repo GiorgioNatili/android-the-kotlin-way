@@ -10,7 +10,8 @@ import io.a2xe.experiments.selfielifecycle.utilities.whenAppCompactActivity
 /**
  * Created by giorgio on 2/26/18.
  */
-class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver):
+class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver,
+                               private val callback: (lifecycleObserver: LifecycleObserver) -> Unit):
         Application.ActivityLifecycleCallbacks {
 
     override fun onActivityPaused(activity: Activity?) {
@@ -27,9 +28,7 @@ class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver)
 
     override fun onActivityDestroyed(activity: Activity?) {
         activity?.let {
-            it.whenAppCompactActivity {
-                it.lifecycle.removeObserver(lifecycleObserver)
-            }
+            handleEndOfActivity(it)
         }
     }
 
@@ -39,9 +38,14 @@ class LifecycleObserverManager(private val lifecycleObserver: LifecycleObserver)
 
     override fun onActivityStopped(activity: Activity?) {
         activity?.let {
-            it.whenAppCompactActivity {
-                it.lifecycle.removeObserver(lifecycleObserver)
-            }
+            handleEndOfActivity(it)
+        }
+    }
+
+    private fun handleEndOfActivity(it: Activity) {
+        it.whenAppCompactActivity {
+            it.lifecycle.removeObserver(lifecycleObserver)
+            callback(lifecycleObserver)
         }
     }
 
