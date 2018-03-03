@@ -24,4 +24,16 @@
         android:scaleType="centerCrop"
         android:gravity="center" />
 
+    <TextView
+        android:id="@+id/overlayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/imageView"
+        android:layout_alignTop="@id/imageView"
+        android:layout_alignEnd="@id/imageView"
+        android:layout_alignBottom="@id/imageView"
+        android:layout_margin="1.3dp"
+        android:gravity="left"
+        android:textColor="#FFFFFF" />
+
 </android.support.constraint.ConstraintLayout>

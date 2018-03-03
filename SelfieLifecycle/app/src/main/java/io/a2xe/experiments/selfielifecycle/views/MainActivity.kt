@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.provider.MediaStore
 import android.content.Intent
 import android.graphics.Bitmap
+import io.a2xe.experiments.selfielifecycle.SelfieLifecycle
 import io.a2xe.experiments.selfielifecycle.utilities.swipeOrTap
 
 class MainActivity : AppCompatActivity() {
@@ -24,11 +25,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val dismissPicture = fun() {
+        val dismissData = fun() {
             imageView.setImageBitmap(null)
+            overlayText.text = ""
         }
 
-        root_layout.swipeOrTap(dismissPicture, takePicture)
+        root_layout.swipeOrTap(dismissData, takePicture)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             data?.extras?.let {
                 val imageBitmap = it.get("data") as Bitmap
                 imageView.setImageBitmap(imageBitmap)
+                overlayText.text = (application as SelfieLifecycle).lifecycleLogs.all
             }
         }
     }

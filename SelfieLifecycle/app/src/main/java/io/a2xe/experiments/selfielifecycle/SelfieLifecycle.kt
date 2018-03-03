@@ -11,10 +11,12 @@ import io.a2xe.experiments.selfielifecycle.utilities.toast
 
 class SelfieLifecycle : Application() {
 
+    val lifecycleLogs = LifecycleLogs()
+
     override fun onCreate() {
         super.onCreate()
 
-        registerActivityLifecycleCallbacks(LifecycleObserverManager(LifecycleLogs(),
+        registerActivityLifecycleCallbacks(LifecycleObserverManager(lifecycleLogs,
                 {observer -> (observer as LifecycleLogs).all.toast(this) }))
     }
 }
