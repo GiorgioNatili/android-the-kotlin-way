@@ -11,7 +11,9 @@ import io.a2xe.experiments.selfielifecycle.utilities.toast
 
 class SelfieLifecycle : Application() {
 
-    val lifecycleLogs = LifecycleLogs()
+    companion object {
+        val lifecycleLogs = LifecycleLogs()
+    }
 
     override fun onCreate() {
         super.onCreate()
