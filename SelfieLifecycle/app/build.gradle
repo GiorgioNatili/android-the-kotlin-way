@@ -33,5 +33,4 @@ dependencies {
     // Lifecycles only (no ViewModel or LiveData)
     implementation "android.arch.lifecycle:runtime:$archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
 }
