@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SelfieLifecycle</string>
     <string name="take_a_selfie">Tap everywhere to take a Selfie and then swipe to start over</string>
+    <string name="permissions_denied">Permission has been denied by user</string>
 </resources>
