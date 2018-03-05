@@ -1,29 +1,23 @@
 package io.a2xe.experiments.selfielifecycle.utilities
 
-import android.view.MotionEvent
 import android.view.View
-import com.jakewharton.rxbinding2.view.RxView
+import io.a2xe.experiments.selfielifecycle.services.OnSwipeTouchListener
 
 /**
  * Created by giorgio on 3/3/18.
  */
 fun View.swipeOrTap(swipe: () -> Unit, tap: () -> Unit) {
 
-    var isMoving = false
+    this.setOnTouchListener( object : OnSwipeTouchListener(context) {
 
-    RxView.touches(this)
-            .subscribe {
-                when (it.action) {
-                    MotionEvent.ACTION_MOVE -> {
-                        swipe()
-                        isMoving = true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (!isMoving) {
-                            tap()
-                        }
-                        isMoving = false
-                    }
-                }
-            }
+        override fun onSwipeLeft() {
+            super.onSwipeLeft()
+            swipe()
+        }
+
+        override fun onTap() {
+            super.onTap()
+            tap()
+        }
+    })
 }
