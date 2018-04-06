@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        unlockCar()
+        openCar()
         turnLightsOn()
     }
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         startEngine()
-        unlockCar()
+        openCar()
     }
 
     override fun onPause() {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun unlockCar() = println("unlockCar")
+fun openCar() = println("openCar")
 fun startEngine() = println("startEngine")
 fun engineGoing() = println("engineGoing")
 fun stopEngine() = println("stopEngine")
