@@ -23,6 +23,9 @@ class LifecycleLogs : LifecycleObserver {
     }
 
     var all: String = ""
-        get() = history.joinToString("\n\n") { "${it.time} => onEvent -> ownerState: ${it.state}\nonEvent -> ownerClassName: ${it.javaClass}\nonEvent -> event: ${it.name}"}
+        get() = history.joinToString("\n\n") { "${it.time} => " +
+                "onEvent -> ownerState: ${it.state}\n" +
+                "onEvent -> ownerClassName: ${it.javaClass}\n" +
+                "onEvent -> event: ${it.name}"}
 }
 
