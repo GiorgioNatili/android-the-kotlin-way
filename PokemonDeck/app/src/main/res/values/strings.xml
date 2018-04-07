@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PokemonDeck</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    
+    <string name="help_intro_txt">Help fragment</string>
+    <string name="cards_intro_txt">Cards fragment</string>
+    <string name="decks_intro_txt">Decks fragment</string>
+    <string name="nav_help">Help</string>
+    <string name="nav_decks">Your Decks</string>
+    <string name="nav_cards">Explore Cards</string>
+    <string name="current_user">Giorgio Natili</string>
+    <string name="current_user_email">g@droidcon-boston.com</string>
+</resources>
