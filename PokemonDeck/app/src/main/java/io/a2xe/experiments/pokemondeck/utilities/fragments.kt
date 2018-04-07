@@ -9,10 +9,6 @@ import android.support.v7.app.AppCompatActivity
  * Created by giorgio on 4/7/18.
  */
 
-fun Int.palla(callback: String.() -> Unit) {
-    toString().callback()
-}
-
 inline fun FragmentManager.handleTransaction(callback: FragmentTransaction.() -> FragmentTransaction) {
     beginTransaction().callback().commit()
 }
