@@ -9,4 +9,9 @@ import io.a2xe.experiments.pokemondeck.R
  */
 class DeckItemRenderer (view: View?) {
     val deckName: TextView = view?.findViewById(R.id.deck_name) as TextView
+    val totalCards: TextView = view?.findViewById(R.id.total_cards) as TextView
 }
+
+
+
+

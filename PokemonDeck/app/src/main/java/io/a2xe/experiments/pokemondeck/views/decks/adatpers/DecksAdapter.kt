@@ -15,23 +15,24 @@ import io.a2xe.experiments.pokemondeck.model.vos.Deck
 class DecksAdapter(private val activity: Activity,
                    private val decks: Array<Deck>) : ArrayAdapter<Deck>(activity, 0, decks) {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view: View?
-        val viewHolder: DeckItemRenderer
-
-        if (convertView == null) {
-            view = activity.layoutInflater.inflate(R.layout.deck_item_renderer, parent, false)
-            viewHolder = DeckItemRenderer(view)
-            view?.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = view.tag as DeckItemRenderer
+        val view = when(convertView == null) {
+            true -> activity.layoutInflater.inflate(R.layout.deck_item_renderer, parent, false)
+            else -> convertView!!
         }
 
-        viewHolder.deckName.text = decks[position].name
-        return view
+        val viewHolder = when(view.tag != null) {
+            true -> view.tag as DeckItemRenderer
+            else -> DeckItemRenderer(view)
+        }
 
+        view.tag = viewHolder
+
+        viewHolder.deckName.text = decks[position].name
+        viewHolder.totalCards.text = decks[position].totalCards.toString()
+
+        return view
     }
 
     override fun getItem(position: Int): Deck {

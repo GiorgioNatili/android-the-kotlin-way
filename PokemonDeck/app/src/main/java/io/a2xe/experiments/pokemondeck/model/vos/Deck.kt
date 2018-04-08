@@ -7,4 +7,7 @@ data class Deck (val name: String,
                  val cards: Array<Card> = emptyArray()) {
 
     val id: Int = Math.floor(Math.random() * 100000).toInt()
+
+    val totalCards: Int
+        get() = this.cards.size
 }
