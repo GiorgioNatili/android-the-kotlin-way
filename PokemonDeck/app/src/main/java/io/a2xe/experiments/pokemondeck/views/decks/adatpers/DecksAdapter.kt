@@ -13,7 +13,7 @@ import io.a2xe.experiments.pokemondeck.model.vos.Deck
  * Created by giorgio on 4/7/18.
  */
 class DecksAdapter(private val activity: Activity,
-                   private val decks: Array<Deck>) : ArrayAdapter<Deck>(activity, 0, decks) {
+                   private val decks: List<Deck>) : ArrayAdapter<Deck>(activity, 0, decks) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
