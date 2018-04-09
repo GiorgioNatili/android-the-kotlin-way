@@ -12,7 +12,7 @@
         android:text="@string/decks_intro_txt" />
 
     <ListView
-        android:id="@+id/local_decs"
+        android:id="@+id/list_of_decks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="18dp" />
