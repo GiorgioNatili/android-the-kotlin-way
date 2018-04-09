@@ -5,15 +5,13 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import io.a2xe.experiments.pokemondeck.utilities.replaceFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import io.a2xe.experiments.pokemondeck.views.cards.CardsFragment
 import io.a2xe.experiments.pokemondeck.views.decks.DecksFragment
 import io.a2xe.experiments.pokemondeck.views.help.HelpFragment
-
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
