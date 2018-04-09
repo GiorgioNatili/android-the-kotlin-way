@@ -8,5 +8,5 @@ import io.a2xe.experiments.pokemondeck.model.vos.Deck
 interface DecksRepository {
 
     fun save(decks: List<Deck>)
-    fun load(): List<Deck>
+    var items: List<Deck>
 }
