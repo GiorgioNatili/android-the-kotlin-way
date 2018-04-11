@@ -7,6 +7,6 @@ import io.a2xe.experiments.pokemondeck.model.vos.Deck
  */
 interface DecksRepository {
 
-    fun save(decks: List<Deck>)
+    fun save(decks: List<Deck>, callback: (() -> Unit)? = null)
     var items: List<Deck>
 }
