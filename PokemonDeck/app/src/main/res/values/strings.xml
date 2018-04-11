@@ -12,4 +12,12 @@
     <string name="nav_cards">Explore Cards</string>
     <string name="current_user">Giorgio Natili</string>
     <string name="current_user_email">g@droidcon-boston.com</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_deck_hint">Deck name</string>
+    <string name="new_deck_title">New deck</string>
+    <string name="new_deck_message">Add a new deck to your Pokémon deck!</string>
+    <string name="new_deck_ok">Ok</string>
+    <string name="new_deck_cancel">Cancel</string>
 </resources>
