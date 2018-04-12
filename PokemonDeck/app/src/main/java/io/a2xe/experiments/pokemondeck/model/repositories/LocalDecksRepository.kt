@@ -37,7 +37,7 @@ class LocalDecksRepository(context: Context) : DecksRepository {
     override var items: List<Deck> = listOf()
         get() {
 
-            val json = sharedPreferences.getString(SHARED_PREFERENCES_KEY_DECKS_LIST, "")
+            val json = sharedPreferences.getString(SHARED_PREFERENCES_KEY_DECKS_LIST, "[]")
 
             val collectionType = object : TypeToken<List<Deck>>(){}
             return json.fromJsonToListOfAnything(collectionType)
