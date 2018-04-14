@@ -6,12 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.a2xe.experiments.pokemondeck.R
+import io.a2xe.experiments.pokemondeck.model.repositories.PokemonCardsRepository
+import io.a2xe.experiments.pokemondeck.services.PokemonCardsService
 
 class CardsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         println("onCreate CardsFragment")
+
+        val service = PokemonCardsService.create()
+
+        val pokemonCards = PokemonCardsRepository(service)
+        pokemonCards.searchCardsSet("sm5") {
+            println(it)
+        }
+        // repo.getCardsDetails("sm5-4")
     }
 
     override fun onCreateView(inflater: LayoutInflater?,
