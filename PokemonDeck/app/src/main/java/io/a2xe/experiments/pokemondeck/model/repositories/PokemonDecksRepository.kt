@@ -2,24 +2,22 @@ package io.a2xe.experiments.pokemondeck.model.repositories
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.preference.PreferenceManager
 import com.google.gson.reflect.TypeToken
-import io.a2xe.experiments.pokemondeck.model.vos.Deck
+import io.a2xe.experiments.pokemondeck.model.entities.Deck
 import io.a2xe.experiments.pokemondeck.utilities.fromJsonToListOfAnything
 import io.a2xe.experiments.pokemondeck.utilities.toJsonString
 
 /**
  * Created by giorgio on 4/8/18.
  */
+class PokemonDecksRepository(context: Context) : DecksRepository {
 
-// This is the saved UserInfoDTO list json string key in sharedpreferences file..
-const val SHARED_PREFERENCES_KEY_DECKS_LIST = "KEY_DECKS_LIST"
-const val FILE_KEY_DECKS_LIST = "keyDecksList"
-
-class LocalDecksRepository(context: Context) : DecksRepository {
+    // This is the saved DeckDTO list json string key in shared preferences file
+    private val SHARED_PREFERENCES_KEY_DECKS_LIST = "KEY_DECKS_LIST"
+    private val FILE_KEY_DECKS_LIST = "keyDecksList"
 
     // Create SharedPreferences object
-    val sharedPreferences = context.getSharedPreferences(FILE_KEY_DECKS_LIST, MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences(FILE_KEY_DECKS_LIST, MODE_PRIVATE)
 
     override fun save(decks: List<Deck>, callback: (() -> Unit)?) {
 
