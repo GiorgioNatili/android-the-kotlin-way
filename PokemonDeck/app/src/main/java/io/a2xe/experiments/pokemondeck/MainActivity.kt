@@ -6,6 +6,9 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import io.a2xe.experiments.pokemondeck.model.repositories.PokemonCardsRepository
+import io.a2xe.experiments.pokemondeck.model.repositories.PokemonDecksRepository
+import io.a2xe.experiments.pokemondeck.services.PokemonCardsService
 import io.a2xe.experiments.pokemondeck.utilities.replaceFragment
 import io.a2xe.experiments.pokemondeck.views.cards.CardsFragment
 import io.a2xe.experiments.pokemondeck.views.decks.DecksFragment

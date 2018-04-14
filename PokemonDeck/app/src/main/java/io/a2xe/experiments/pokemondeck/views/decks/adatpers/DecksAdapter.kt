@@ -1,12 +1,11 @@
 package io.a2xe.experiments.pokemondeck.views.decks.adatpers
 
 import android.app.Activity
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import io.a2xe.experiments.pokemondeck.R
-import io.a2xe.experiments.pokemondeck.model.vos.Deck
+import io.a2xe.experiments.pokemondeck.model.entities.Deck
 
 
 /**

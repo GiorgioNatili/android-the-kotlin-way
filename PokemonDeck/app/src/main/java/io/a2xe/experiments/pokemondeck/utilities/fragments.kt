@@ -18,5 +18,5 @@ fun AppCompatActivity.addFragment(fragment: Fragment, target: Int){
 }
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment, target: Int) {
-    supportFragmentManager.handleTransaction{replace(target, fragment)}
+    supportFragmentManager.handleTransaction { replace(target, fragment) }
 }

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import io.a2xe.experiments.pokemondeck.R
 import io.a2xe.experiments.pokemondeck.model.repositories.DecksRepository
-import io.a2xe.experiments.pokemondeck.model.repositories.LocalDecksRepository
-import io.a2xe.experiments.pokemondeck.model.vos.Deck
+import io.a2xe.experiments.pokemondeck.model.repositories.PokemonDecksRepository
+import io.a2xe.experiments.pokemondeck.model.entities.Deck
 import io.a2xe.experiments.pokemondeck.views.decks.adatpers.DecksAdapter
 import kotlinx.android.synthetic.main.fragment_decks.*
 
@@ -23,7 +23,7 @@ class DecksFragment : Fragment() {
 
         super.onCreate(savedInstanceState)
 
-        decks = LocalDecksRepository(this.context)
+        decks = PokemonDecksRepository(this.context)
         decksListAdapter = DecksAdapter(this.activity, decks.items)
     }
 
