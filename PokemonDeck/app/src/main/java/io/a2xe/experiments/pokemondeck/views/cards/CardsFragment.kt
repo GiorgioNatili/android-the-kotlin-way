@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.a2xe.experiments.pokemondeck.R
+import io.a2xe.experiments.pokemondeck.model.entities.Card
 import io.a2xe.experiments.pokemondeck.model.repositories.CardsRepository
 import io.a2xe.experiments.pokemondeck.model.repositories.PokemonCardsRepository
 import io.a2xe.experiments.pokemondeck.services.PokemonCardsService
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_cards.*
 
 class CardsFragment : Fragment() {
 
-    lateinit var cards: CardsRepository
+    lateinit var pockemonCards: CardsRepository
     lateinit var cardsAdapter: CardsAdapter
 
     private val gridLayoutManager: GridLayoutManager by lazy {
@@ -27,15 +28,12 @@ class CardsFragment : Fragment() {
 
         super.onCreate(savedInstanceState)
 
-        val service = PokemonCardsService.create()
-        cards = PokemonCardsRepository(service)
+        pockemonCards = PokemonCardsRepository(PokemonCardsService.create())
+        pockemonCards.searchCardsSet("sm5") {
 
-        cards.searchCardsSet("sm5") {
-
-            cardsAdapter =  CardsAdapter(activity, it)
+            cardsAdapter = CardsAdapter(activity, it, ::fetchCardDetails)
             cards_list.adapter = cardsAdapter
         }
-        // repo.getCardsDetails("sm5-4")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -50,7 +48,14 @@ class CardsFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        println("onCreateView, Inflate the layout for CardsFragment")
         return inflater?.inflate(R.layout.fragment_cards, container, false)
+    }
+
+    private fun fetchCardDetails(card: Card) {
+
+        pockemonCards.getCardsDetails(card.id) {
+
+            println(it)
+        }
     }
 }

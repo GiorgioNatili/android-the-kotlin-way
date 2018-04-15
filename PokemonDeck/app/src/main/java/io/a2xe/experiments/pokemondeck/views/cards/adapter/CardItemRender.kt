@@ -9,8 +9,7 @@ import io.a2xe.experiments.pokemondeck.R
 /**
  * Created by giorgio on 4/14/18.
  */
-class CardItemRender(view:View,
-                     private val itemClick: (Any) -> Unit) : RecyclerView.ViewHolder(view) {
+class CardItemRender(view:View) : RecyclerView.ViewHolder(view) {
 
     val cardName: TextView = view.findViewById(R.id.card_name) as TextView
     val cardThumbnail: ImageView= view.findViewById(R.id.card_thumbnail) as ImageView

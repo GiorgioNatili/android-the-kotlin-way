@@ -12,7 +12,8 @@ import io.a2xe.experiments.pokemondeck.model.entities.Card
  * Created by giorgio on 4/14/18.
  */
 class CardsAdapter(private val context: Context,
-                   private val cards: List<Card>) : RecyclerView.Adapter<CardItemRender>() {
+                   private val cards: List<Card>,
+                   private val callback: (Card) -> Unit) : RecyclerView.Adapter<CardItemRender>() {
 
     override fun onBindViewHolder(holder: CardItemRender?, position: Int) {
 
@@ -26,9 +27,13 @@ class CardsAdapter(private val context: Context,
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CardItemRender? {
 
         val view = LayoutInflater.from(context).inflate(R.layout.card_item_renderer, parent, false)
-        return CardItemRender(view) {
-            println("I got clicked")
+        val cardItemRender = CardItemRender(view)
+
+        view.setOnClickListener {
+            callback(cards[cardItemRender.adapterPosition])
         }
+
+        return cardItemRender
     }
 
     override fun getItemId(position: Int): Long {

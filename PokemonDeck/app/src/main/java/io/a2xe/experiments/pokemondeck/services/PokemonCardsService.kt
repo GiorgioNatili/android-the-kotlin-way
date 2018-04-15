@@ -21,7 +21,6 @@ interface PokemonCardsService {
     @GET("cards/{id}")
     fun searchCard(@Path("id") cardId: String): Call<CardDetailsResult>
 
-
     /**
      * Factory class for convenient creation of the Api Service interface
      */
