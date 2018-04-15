@@ -18,7 +18,10 @@ class CardsFragment : Fragment() {
 
     lateinit var cards: CardsRepository
     lateinit var cardsAdapter: CardsAdapter
-    lateinit var gridLayoutManager: GridLayoutManager
+
+    private val gridLayoutManager: GridLayoutManager by lazy {
+        GridLayoutManager(activity, 3)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -29,7 +32,7 @@ class CardsFragment : Fragment() {
 
         cards.searchCardsSet("sm5") {
 
-            cardsAdapter=  CardsAdapter(activity, it)
+            cardsAdapter =  CardsAdapter(activity, it)
             cards_list.adapter = cardsAdapter
         }
         // repo.getCardsDetails("sm5-4")
@@ -39,9 +42,7 @@ class CardsFragment : Fragment() {
 
         super.onActivityCreated(savedInstanceState)
 
-        gridLayoutManager = GridLayoutManager(activity, 3)
         cards_list.layoutManager = gridLayoutManager
-
         cards_list.addItemDecoration(ItemOffsetDecoration(10))
     }
 
