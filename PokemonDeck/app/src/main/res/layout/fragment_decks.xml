@@ -4,14 +4,11 @@
     android:layout_height="match_parent"
     tools:context="io.a2xe.experiments.pokemondeck.views.decks.DecksFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/decs_intro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/decks_intro_txt" />
-
-
 
     <ListView
         android:id="@+id/list_of_decks"
