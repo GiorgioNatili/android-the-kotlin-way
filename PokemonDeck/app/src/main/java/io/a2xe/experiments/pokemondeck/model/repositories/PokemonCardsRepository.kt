@@ -21,8 +21,8 @@ class PokemonCardsRepository(private val cardsService: PokemonCardsService) : Ca
         call.enqueue(object : Callback<CardsSetResult> {
             override fun onResponse(call: Call<CardsSetResult>, response: Response<CardsSetResult>) {
 
-                response.body().let {
-                    (it as CardsSetResult).let { callback.invoke(it.toSimplifiedCardSet()) }
+                response.body().takeIf { it is CardsSetResult }?.run {
+                    callback.invoke(toSimplifiedCardSet())
                 }
             }
 
@@ -38,8 +38,8 @@ class PokemonCardsRepository(private val cardsService: PokemonCardsService) : Ca
         call.enqueue(object : Callback<CardDetailsResult> {
             override fun onResponse(call: Call<CardDetailsResult>, response: Response<CardDetailsResult>) {
 
-                response.body().let {
-                    (it as CardDetailsResult).let { callback.invoke(it.toSimplifiedCard()) }
+                response.body().takeIf { it is CardDetailsResult }?.run {
+                    callback.invoke(toSimplifiedCard())
                 }
             }
 
