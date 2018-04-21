@@ -2,6 +2,7 @@ package io.a2xe.experiments.pokemondeck.views.cards
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import io.a2xe.experiments.pokemondeck.model.entities.Card
 import io.a2xe.experiments.pokemondeck.model.repositories.CardsRepository
 import io.a2xe.experiments.pokemondeck.model.repositories.PokemonCardsRepository
 import io.a2xe.experiments.pokemondeck.services.PokemonCardsService
+import io.a2xe.experiments.pokemondeck.utilities.refreshItems
 import io.a2xe.experiments.pokemondeck.views.cards.adapter.CardsAdapter
 import io.a2xe.experiments.pokemondeck.views.cards.adapter.ItemOffsetDecoration
 import kotlinx.android.synthetic.main.fragment_cards.*
@@ -55,7 +57,11 @@ class CardsFragment : Fragment() {
 
         pockemonCards.getCardsDetails(card.id) {
 
-            println(it)
+            AlertDialog.Builder(this.activity)
+                    .setTitle(getString(R.string.card_details_title))
+                    .setMessage(getString(R.string.card_details_content, it.name, it.id))
+                    .setPositiveButton(getString(R.string.new_deck_ok), { _, _ -> })
+                    .show()
         }
     }
 }
