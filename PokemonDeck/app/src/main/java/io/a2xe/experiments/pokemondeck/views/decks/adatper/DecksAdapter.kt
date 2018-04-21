@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Filter
 import io.a2xe.experiments.pokemondeck.R
 import io.a2xe.experiments.pokemondeck.model.entities.Deck
 
@@ -12,7 +13,9 @@ import io.a2xe.experiments.pokemondeck.model.entities.Deck
  * Created by giorgio on 4/7/18.
  */
 class DecksAdapter(private val activity: Activity,
-                   private val decks: List<Deck>) : ArrayAdapter<Deck>(activity, 0, decks) {
+                   var decks: List<Deck>) : ArrayAdapter<Deck>(activity, 0, decks) {
+
+    val filter = FilterByName(this, decks)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
