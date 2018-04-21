@@ -14,11 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
+    <EditText
+        android:id="@+id/filter_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="@string/filter_decks_and_cards"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

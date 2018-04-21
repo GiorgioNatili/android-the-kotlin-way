@@ -20,4 +20,5 @@
     <string name="new_deck_message">Add a new deck to your Pokémon deck!</string>
     <string name="new_deck_ok">Ok</string>
     <string name="new_deck_cancel">Cancel</string>
+    <string name="filter_decks_and_cards">Filter decks and cards</string>
 </resources>
