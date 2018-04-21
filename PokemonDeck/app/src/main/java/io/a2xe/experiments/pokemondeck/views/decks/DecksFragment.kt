@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import io.a2xe.experiments.pokemondeck.R
+import io.a2xe.experiments.pokemondeck.model.entities.Deck
 import io.a2xe.experiments.pokemondeck.model.repositories.DecksRepository
 import io.a2xe.experiments.pokemondeck.model.repositories.PokemonDecksRepository
-import io.a2xe.experiments.pokemondeck.model.entities.Deck
+import io.a2xe.experiments.pokemondeck.utilities.refreshItems
 import io.a2xe.experiments.pokemondeck.views.decks.adatper.DecksAdapter
 import kotlinx.android.synthetic.main.fragment_decks.*
 
@@ -48,12 +49,13 @@ class DecksFragment : Fragment() {
                     .setView(deckName)
                     .setPositiveButton(getString(R.string.new_deck_ok), { _, _ ->
 
+                        // TODO decouple this function to support better te
                         decks.items.toMutableList().let {
 
                             it.add(Deck(deckName.text.toString()))
                             decks.save(it) {
 
-                                refreshListOfDecks(it)
+                                decksListAdapter.refreshItems(it)
                             }
                         }
                     })
@@ -62,12 +64,5 @@ class DecksFragment : Fragment() {
         }
 
         list_of_decks.adapter = decksListAdapter
-    }
-
-    private fun refreshListOfDecks(decks: MutableList<Deck>) {
-
-        decksListAdapter.clear()
-        decksListAdapter.addAll(decks)
-        decksListAdapter.notifyDataSetChanged()
     }
 }
