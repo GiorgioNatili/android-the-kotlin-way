@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter
  * Created by giorgio on 4/18/18.
  */
 
-fun <T> ArrayAdapter<T>.refreshItems(items: MutableCollection<T>) {
+fun <T> ArrayAdapter<T>.refreshItems(items: Collection<T>) {
 
     val addAll: (Collection<T>) -> Unit = ::addAll
 

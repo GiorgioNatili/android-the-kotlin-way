@@ -40,22 +40,22 @@ class DecksFragment : Fragment() {
 
         add_deck.setOnClickListener {
 
-            val deckName = EditText(this.activity)
-            deckName.hint = getString(R.string.new_deck_hint)
+            val deckNameEditText = EditText(this.activity)
+            deckNameEditText.hint = getString(R.string.new_deck_hint)
 
             AlertDialog.Builder(this.activity)
                     .setTitle(getString(R.string.new_deck_title))
                     .setMessage(getString(R.string.new_deck_message))
-                    .setView(deckName)
+                    .setView(deckNameEditText)
                     .setPositiveButton(getString(R.string.new_deck_ok), { _, _ ->
 
-                        // TODO decouple this function to support better te
                         decks.items.toMutableList().let {
 
-                            it.add(Deck(deckName.text.toString()))
-                            decks.save(it) {
+                            val deckName = deckNameEditText.text.toString()
+                            val updatedDecks = updateDecksList(it, deckName)
 
-                                decksListAdapter.refreshItems(it)
+                            decks.save(updatedDecks){
+                                decksListAdapter.refreshItems(updatedDecks)
                             }
                         }
                     })
@@ -65,4 +65,10 @@ class DecksFragment : Fragment() {
 
         list_of_decks.adapter = decksListAdapter
     }
+
+    private fun updateDecksList(currentDecks: MutableList<Deck>, deckName: String): List<Deck> {
+        currentDecks.add(Deck(deckName))
+        return currentDecks.toList()
+    }
+
 }
