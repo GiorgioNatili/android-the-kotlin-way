@@ -34,9 +34,11 @@ inline fun <reified T : Fragment>Fragment.waitUntilCreated(crossinline callback:
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun onCreate() {
-            check(activationObject is T).let {
-                callback(activationObject as T)
+
+            check(activationObject is T) {
+                "The activation object and the generic type differs."
             }
+            callback(activationObject as T)
         }
     }
 }
