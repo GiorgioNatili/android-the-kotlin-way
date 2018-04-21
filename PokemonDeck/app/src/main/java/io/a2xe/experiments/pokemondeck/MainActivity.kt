@@ -6,15 +6,17 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import io.a2xe.experiments.pokemondeck.model.repositories.PokemonCardsRepository
-import io.a2xe.experiments.pokemondeck.model.repositories.PokemonDecksRepository
-import io.a2xe.experiments.pokemondeck.services.PokemonCardsService
+import android.view.View
+import io.a2xe.experiments.pokemondeck.utilities.onChange
 import io.a2xe.experiments.pokemondeck.utilities.replaceFragment
 import io.a2xe.experiments.pokemondeck.views.cards.CardsFragment
 import io.a2xe.experiments.pokemondeck.views.decks.DecksFragment
 import io.a2xe.experiments.pokemondeck.views.help.HelpFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import io.a2xe.experiments.pokemondeck.utilities.waitUntilCreated
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,6 +47,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_cards -> CardsFragment()
             R.id.nav_decks -> DecksFragment()
             else -> HelpFragment()
+        }
+
+        filter_items.visibility = if(fragment is DecksFragment) View.VISIBLE else View.GONE
+
+        (fragment as? DecksFragment)?.let {
+
+            fragment.waitUntilCreated<DecksFragment> { filterable ->
+                filter_items.onChange {
+                    filterable.decksListAdapter.filter.filter(it)
+                }
+            }
         }
 
         replaceFragment(fragment, R.id.content_frame)
