@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LoginAndBrowse</string>
+    <string name="facebook_login">Authenticate with Facebook</string>
+    <string name="twitter_logout">Logout from Twitter</string>
+    <string name="hello_user">Hello %1$s, welcome to the Firebase World!</string>
+    <string name="launch_providers">Open authentication</string>
 </resources>
