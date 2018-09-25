@@ -3,21 +3,21 @@ package io.a2xe.experiments.loginandbrowse
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 import toast
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var authentication: FirebaseAuth
-
     private val RC_SIGN_IN = 123
-    var providers = arrayListOf(
+
+    lateinit var authentication: FirebaseAuth
+    var authenticationProviders = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.TwitterBuilder().build())
 
@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 user?.let {
-                    "User ${it.uid} succesfully logged in".toast(this)
+                    "User ${it.uid} successfully logged in".toast(this)
+                    prepareForLogout(it)
                 }
 
             } else {
@@ -53,28 +54,40 @@ class MainActivity : AppCompatActivity() {
         val currentUser = authentication.currentUser
 
         when(currentUser) {
-            null -> launchAuthenticationProviders()
-            else -> {
-                welcome_message.text = getString(R.string.hello_user, currentUser.uid)
-                twitter_logout.visibility = View.VISIBLE
-            }
+            null -> launchAuthenticationProviders(authenticationProviders)
+            else -> prepareForLogout(currentUser)
         }
 
-        twitter_logout.setOnClickListener {
-
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener {
-                        welcome_message.text = ""
-                        twitter_logout.visibility = View.GONE
-                        launch_providers.visibility = View.VISIBLE
-                    }
-        }
-
-        launch_providers.setOnClickListener { launchAuthenticationProviders() }
+        twitter_logout.setOnClickListener { logoutFromTwitter(::prepareForAuthentication) }
+        launch_providers.setOnClickListener { launchAuthenticationProviders(authenticationProviders) }
     }
 
-    fun launchAuthenticationProviders() {
+    fun prepareForLogout(currentUser: FirebaseUser) {
+
+        welcome_message.text = getString(R.string.hello_user, currentUser.uid)
+
+        twitter_logout.visibility = View.VISIBLE
+        launch_providers.visibility = View.GONE
+    }
+
+    fun prepareForAuthentication() {
+
+        welcome_message.text = ""
+
+        twitter_logout.visibility = View.GONE
+        launch_providers.visibility = View.VISIBLE
+    }
+
+    fun logoutFromTwitter(callback: ()->Unit) {
+
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener {
+                    callback.invoke()
+                }
+    }
+
+    fun launchAuthenticationProviders(providers: ArrayList<AuthUI.IdpConfig>) {
 
         startActivityForResult(
                 AuthUI.getInstance()
