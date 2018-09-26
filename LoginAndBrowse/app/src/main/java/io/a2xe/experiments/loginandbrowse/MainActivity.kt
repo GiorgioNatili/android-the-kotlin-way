@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.a2xe.experiments.loginandbrowse.utilities.toast
 import kotlinx.android.synthetic.main.activity_main.*
-import visibleOrInvisible
+import isVisible
 
 const val RC_SIGN_IN = 123
 
@@ -77,11 +77,8 @@ class MainActivity : AppCompatActivity() {
             welcome_message.text = getString(R.string.hello_user, it.uid)
         }
 
-        currentUser.takeIf { it != null }.also {
-
-            twitter_logout.visibleOrInvisible(it != null)
-            launch_providers.visibleOrInvisible(it == null)
-        }
+        twitter_logout.isVisible = currentUser != null
+        launch_providers.isVisible = !twitter_logout.isVisible
     }
 
     fun launchAuthenticationProviders(providers: ArrayList<AuthUI.IdpConfig>) {

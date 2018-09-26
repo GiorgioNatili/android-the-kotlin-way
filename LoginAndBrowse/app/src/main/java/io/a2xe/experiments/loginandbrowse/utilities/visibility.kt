@@ -1,5 +1,7 @@
 import android.view.View
 
-fun View.visibleOrInvisible(visible: Boolean) {
-    visibility = if(visible) View.VISIBLE else View.GONE
-}
+var View.isVisible: Boolean
+    get() = visibility == View.VISIBLE
+    set(visible){
+        visibility = if(visible) View.VISIBLE else View.GONE
+    }
