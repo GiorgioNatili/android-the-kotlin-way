@@ -71,10 +71,8 @@ class MainActivity : AppCompatActivity() {
 
     fun prepareAuthentication(currentUser: FirebaseUser?) {
 
-        welcome_message.text = ""
-
-        currentUser?.let {
-            welcome_message.text = getString(R.string.hello_user, it.uid)
+        welcome_message.text = currentUser.let {
+            if(it != null) getString(R.string.hello_user, it.uid) else ""
         }
 
         twitter_logout.isVisible = currentUser != null
