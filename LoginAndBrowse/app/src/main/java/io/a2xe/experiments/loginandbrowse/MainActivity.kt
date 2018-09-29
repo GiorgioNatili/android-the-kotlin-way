@@ -8,6 +8,9 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.TwitterAuthProvider
+import com.twitter.sdk.android.core.Twitter
+import com.twitter.sdk.android.core.TwitterSession
 import io.a2xe.experiments.loginandbrowse.utilities.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import isVisible
@@ -20,9 +23,12 @@ class MainActivity : AppCompatActivity() {
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.TwitterBuilder().build())
 
+    val mediaProviders: Map<String, UserMedia> = mapOf("twitter.com" to TwitterUserMedia())
+
     val currentUser: FirebaseUser?
         get() = FirebaseAuth.getInstance().currentUser
 
+    lateinit var authenticationListener: AuthenticationListener
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -75,6 +81,27 @@ class MainActivity : AppCompatActivity() {
             if(it != null) getString(R.string.hello_user, it.uid) else ""
         }
 
+        val providerId = currentUser?.providerId
+        val metadata = currentUser?.metadata
+
+        currentUser?.run {
+
+            searchProvider@ for (profile in providerData) {
+
+                // Id of the provider (ex: google.com)
+                val mediaProvider: UserMedia? = mediaProviders[profile.providerId]
+                when {
+                    mediaProvider != null -> {
+
+                        mediaProvider.userId = profile.uid
+                        authenticationListener = AuthenticationListener(mediaProvider)
+                        break@searchProvider
+                    }
+                }
+                // More info https://firebase.google.com/docs/auth/android/manage-users
+            }
+        }
+
         twitter_logout.isVisible = currentUser != null
         launch_providers.isVisible = !twitter_logout.isVisible
     }
@@ -86,5 +113,15 @@ class MainActivity : AppCompatActivity() {
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .build(), RC_SIGN_IN)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        FirebaseAuth.getInstance().addAuthStateListener(authenticationListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        FirebaseAuth.getInstance().removeAuthStateListener(authenticationListener)
     }
 }
