@@ -1,4 +1,6 @@
-package io.a2xe.experiments.loginandbrowse
+package io.a2xe.experiments.loginandbrowse.mediaproviders
+
+import io.a2xe.experiments.loginandbrowse.services.TweetsService
 
 class TwitterUserMedia : UserMedia {
 

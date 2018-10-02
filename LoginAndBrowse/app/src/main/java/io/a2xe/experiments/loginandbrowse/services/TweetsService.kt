@@ -1,4 +1,4 @@
-package io.a2xe.experiments.loginandbrowse
+package io.a2xe.experiments.loginandbrowse.services
 
 import retrofit2.Call
 import retrofit2.Retrofit

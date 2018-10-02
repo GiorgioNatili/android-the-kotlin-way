@@ -8,14 +8,12 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.TwitterAuthProvider
-import com.twitter.sdk.android.core.Twitter
-import com.twitter.sdk.android.core.TwitterSession
+import io.a2xe.experiments.loginandbrowse.mediaproviders.TwitterUserMedia
+import io.a2xe.experiments.loginandbrowse.mediaproviders.UserMedia
+import io.a2xe.experiments.loginandbrowse.userstatelisteners.AuthenticationListener
 import io.a2xe.experiments.loginandbrowse.utilities.toast
-import kotlinx.android.synthetic.main.activity_main.*
 import isVisible
-
-const val RC_SIGN_IN = 123
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     val currentUser: FirebaseUser?
         get() = FirebaseAuth.getInstance().currentUser
 
-    lateinit var authenticationListener: AuthenticationListener
+    val authenticationListener = AuthenticationListener()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 // Successfully signed in
                 currentUser?.let {
                     "User ${it.uid} successfully logged in".toast(this)
-                    prepareAuthentication(it)
+                    configureAuthenticationUI(it)
                 }
 
             } else {
@@ -59,11 +57,35 @@ class MainActivity : AppCompatActivity() {
 
         when(currentUser) {
             null -> launchAuthenticationProviders(authenticationProviders)
-            else -> prepareAuthentication(currentUser)
+            else -> {
+                configureAuthenticationUI(currentUser)
+
+                currentUser?.let {
+                    authenticationListener.userMedia = configureUserMediaProvider(it, mediaProviders)
+                }
+            }
         }
 
-        twitter_logout.setOnClickListener { logoutFromTwitter { prepareAuthentication(currentUser) } }
+        twitter_logout.setOnClickListener { logoutFromTwitter { configureAuthenticationUI(currentUser) } }
         launch_providers.setOnClickListener { launchAuthenticationProviders(authenticationProviders) }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        FirebaseAuth.getInstance().addAuthStateListener(authenticationListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        FirebaseAuth.getInstance().removeAuthStateListener(authenticationListener)
+    }
+
+    fun configureAuthenticationUI(user: FirebaseUser?) {
+
+        displayWelcomeMessage(user)
+        displayAuthenticationControls(user)
     }
 
     fun logoutFromTwitter(callback: () -> Unit) {
@@ -75,35 +97,25 @@ class MainActivity : AppCompatActivity() {
                 }
     }
 
-    fun prepareAuthentication(currentUser: FirebaseUser?) {
+    fun configureUserMediaProvider(user: FirebaseUser, providers: Map<String, UserMedia>) : UserMedia? {
 
-        welcome_message.text = currentUser.let {
-            if(it != null) getString(R.string.hello_user, it.uid) else ""
+        // More info https://firebase.google.com/docs/auth/android/manage-users
+        return providers[user.providerId]?.also {
+            it.userId = user.providerId
         }
+    }
 
-        val providerId = currentUser?.providerId
-        val metadata = currentUser?.metadata
+    fun displayAuthenticationControls(user: FirebaseUser?) {
 
-        currentUser?.run {
-
-            searchProvider@ for (profile in providerData) {
-
-                // Id of the provider (ex: google.com)
-                val mediaProvider: UserMedia? = mediaProviders[profile.providerId]
-                when {
-                    mediaProvider != null -> {
-
-                        mediaProvider.userId = profile.uid
-                        authenticationListener = AuthenticationListener(mediaProvider)
-                        break@searchProvider
-                    }
-                }
-                // More info https://firebase.google.com/docs/auth/android/manage-users
-            }
-        }
-
-        twitter_logout.isVisible = currentUser != null
+        twitter_logout.isVisible = user != null
         launch_providers.isVisible = !twitter_logout.isVisible
+    }
+
+    fun displayWelcomeMessage(user: FirebaseUser?) {
+
+        welcome_message.text = user.let {
+            if (it != null) getString(R.string.hello_user, it.uid) else ""
+        }
     }
 
     fun launchAuthenticationProviders(providers: ArrayList<AuthUI.IdpConfig>) {
@@ -113,15 +125,5 @@ class MainActivity : AppCompatActivity() {
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
                         .build(), RC_SIGN_IN)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        FirebaseAuth.getInstance().addAuthStateListener(authenticationListener)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        FirebaseAuth.getInstance().removeAuthStateListener(authenticationListener)
     }
 }
