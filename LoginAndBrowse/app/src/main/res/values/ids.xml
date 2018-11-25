@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="twitter_consumer_key">tgVUAeO2zRme8VzmTS7rHzyuy</string>
-    <string name="twitter_consumer_secret">4y3WE6jTdl1Tm7DusweaWB7DawYygOoHSrRswXOxgCU44pLKG3</string>
+    <string name="twitter_consumer_key">YOUR_KEY_HERE</string>
+    <string name="twitter_consumer_secret">YOUR_SECRET_HERE</string>
 </resources>
