@@ -2,18 +2,23 @@ package io.a2xe.experiments.loginandbrowse
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.twitter.sdk.android.core.TwitterCore
 import io.a2xe.experiments.loginandbrowse.mediaproviders.TwitterUserMedia
 import io.a2xe.experiments.loginandbrowse.mediaproviders.UserMedia
+import io.a2xe.experiments.loginandbrowse.model.entities.MediaEntity
 import io.a2xe.experiments.loginandbrowse.userstatelisteners.AuthenticationListener
+import io.a2xe.experiments.loginandbrowse.utilities.authenticationProvider
+import io.a2xe.experiments.loginandbrowse.utilities.isVisible
 import io.a2xe.experiments.loginandbrowse.utilities.toast
-import isVisible
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,12 +26,15 @@ class MainActivity : AppCompatActivity() {
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.TwitterBuilder().build())
 
-    val mediaProviders: Map<String, UserMedia> = mapOf("twitter.com" to TwitterUserMedia())
+    val mediaProviders: Map<String, UserMedia> = mapOf("twitter.com" to
+            TwitterUserMedia(TwitterCore.getInstance().sessionManager.activeSession))
 
     val currentUser: FirebaseUser?
         get() = FirebaseAuth.getInstance().currentUser
 
-    val authenticationListener = AuthenticationListener()
+    val authenticationListener = AuthenticationListener(::displayImagesData)
+
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -35,9 +43,20 @@ class MainActivity : AppCompatActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
 
+                IdpResponse.fromResultIntent(data)?.takeIf { it.providerType != "" }?.apply {
+                    sharedPreferences.authenticationProvider = providerType
+                }
+
                 // Successfully signed in
-                currentUser?.let {
-                    "User ${it.uid} successfully logged in".toast(this)
+                currentUser?.let { it ->
+
+                    ("User ${it.uid} successfully logged with: " +
+                            sharedPreferences.authenticationProvider).toast(this)
+
+                    configureUserMediaProvider(it,
+                            sharedPreferences.authenticationProvider,
+                            mediaProviders)
+
                     configureAuthenticationUI(it)
                 }
 
@@ -55,13 +74,18 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        sharedPreferences = getSharedPreferences(USER_INFO, MODE_PRIVATE)
+
         when(currentUser) {
             null -> launchAuthenticationProviders(authenticationProviders)
             else -> {
                 configureAuthenticationUI(currentUser)
 
                 currentUser?.let {
-                    authenticationListener.userMedia = configureUserMediaProvider(it, mediaProviders)
+                    authenticationListener.userMedia = configureUserMediaProvider(it,
+                            sharedPreferences.authenticationProvider,
+                            mediaProviders)
+
                 }
             }
         }
@@ -97,11 +121,12 @@ class MainActivity : AppCompatActivity() {
                 }
     }
 
-    fun configureUserMediaProvider(user: FirebaseUser, providers: Map<String, UserMedia>) : UserMedia? {
+    fun configureUserMediaProvider(user: FirebaseUser,
+                                   providerId: String,
+                                   providers: Map<String, UserMedia>) : UserMedia? {
 
-        // More info https://firebase.google.com/docs/auth/android/manage-users
-        return providers[user.providerId]?.also {
-            it.userId = user.providerId
+        return providers[providerId]?.also { userMedia ->
+            userMedia.userId = user.providerData.first { it.providerId == providerId }.uid
         }
     }
 
@@ -116,6 +141,11 @@ class MainActivity : AppCompatActivity() {
         welcome_message.text = user.let {
             if (it != null) getString(R.string.hello_user, it.uid) else ""
         }
+    }
+
+    fun displayImagesData(data: List<MediaEntity>) {
+
+        social_media_images.text = data.fold("") { msg, entity -> msg + entity.url +"\n" }
     }
 
     fun launchAuthenticationProviders(providers: ArrayList<AuthUI.IdpConfig>) {

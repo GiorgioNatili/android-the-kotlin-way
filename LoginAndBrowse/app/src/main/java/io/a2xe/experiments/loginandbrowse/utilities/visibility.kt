@@ -1,3 +1,5 @@
+package io.a2xe.experiments.loginandbrowse.utilities
+
 import android.view.View
 
 var View.isVisible: Boolean
